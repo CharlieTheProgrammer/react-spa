@@ -1,0 +1,7 @@
+{
+    "description": "Username",
+    "title": "Username",
+    "$id": "username.json",
+    "type": "string",
+    "minLength": 1
+}

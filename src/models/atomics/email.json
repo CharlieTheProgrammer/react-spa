@@ -1,0 +1,7 @@
+{
+    "description": "Email",
+    "title": "Email Address",
+    "$id": "email.json",
+    "type": "string",
+    "format": "email"
+}

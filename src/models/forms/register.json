@@ -1,0 +1,12 @@
+{
+    "description": "Model for Register Form",
+    "title": "Register Form",
+    "$id": "register.json",
+    "type": "object",
+    "properties": {
+        "displayName": {"$ref": "display_name.json" }
+    },
+    "required": [
+        "displayName"
+    ]
+}

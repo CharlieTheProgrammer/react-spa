@@ -1,0 +1,8 @@
+{
+    "description": "Name to display on screen",
+    "title": "Display Name",
+    "$id": "displayName.json",
+    "type": "string",
+    "minLength": 5,
+    "maxLength": 30
+}
