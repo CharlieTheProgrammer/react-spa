@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import validate from "../features/errorHandling/Validation";
 import { FaCentercode } from "react-icons/fa";
+import MeetingList from "./MeetingList";
 
 class Meetings extends Component {
   constructor(props) {
@@ -102,7 +103,7 @@ class Meetings extends Component {
               </div>
             </div>
           </div>
-           <div className="col-11 col-md-6 text-center">
+           <div className="col-11 col-md-7 text-center">
             <div className="card border-top-0 rounded-0">
               {this.props.meetings && this.props.meetings.length ? (
                 <div className="card-body py-2">
@@ -113,7 +114,10 @@ class Meetings extends Component {
               ) : null}
               {this.props.meetings && (
                 <div className="list-group list-group-flush">
-
+                  <MeetingList
+                  meetings={this.props.meetings}
+                  deleteMeeting={this.props.deleteMeeting}
+                  ></MeetingList>
                 </div>
               )}
             </div>

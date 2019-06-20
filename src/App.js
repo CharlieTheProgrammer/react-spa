@@ -26,6 +26,7 @@ class App extends Component {
     this.logOut = this.logOut.bind(this)
     this.registerUser = this.registerUser.bind(this)
     this.addMeeting = this.addMeeting.bind(this)
+    this.deleteMeeting = this.deleteMeeting.bind(this)
   }
 
   registerUser(userName) {
@@ -106,7 +107,12 @@ class App extends Component {
     // this.setState({meetings: updatedMeetings})
 
     const ref = firebase.database().ref(`meetings/${this.state.user.uid}`)
-    ref.push({ meetings: meetingName })
+    ref.push({ meetingName: meetingName })
+  }
+
+  async deleteMeeting(meetingID) {
+    const ref = firebase.database().ref(`/meetings/${this.state.user.uid}/${meetingID}`)
+    await ref.remove()
   }
 
   render() {
@@ -118,7 +124,7 @@ class App extends Component {
         <Router>
           <Home path='/' user={this.state.user} />
           <Login path='/login' logIn={this.logIn} />
-          <Meetings path='/meetings' user={this.state.user} addMeeting={this.addMeeting} meetings={this.state.meetings}/>
+          <Meetings path='/meetings' user={this.state.user} addMeeting={this.addMeeting} deleteMeeting={this.deleteMeeting} meetings={this.state.meetings}/>
           <Register path='/register' user={this.state.user} registerUser={this.registerUser} />
         </Router>
       </React.Fragment>
