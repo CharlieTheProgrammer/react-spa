@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaSignInAlt } from "react-icons/fa";
+import { navigate } from "@reach/router";
 
 export default class MeetingList extends Component {
   render() {
@@ -12,8 +13,22 @@ export default class MeetingList extends Component {
                   <section className="pl-3 text-left d-flex align-self-center justify-content-between w-100">
                     <div>{meeting.meetingName}</div>
                     <div>
+                        <FaSignInAlt
+                          className="text-primary mx-2"
+                          style={
+                            {
+                              cursor: 'pointer'
+                            }
+                          }
+                          onClick={() => navigate(`/checkin/${this.props.user.uid}/${meeting.meetingID}`, {state:{meetingID: meeting.meetingID}})}
+                        />
                       <FaTrash
-                        className="text-danger"
+                        className="text-danger mx-2"
+                        style={
+                          {
+                            cursor: 'pointer'
+                          }
+                        }
                         onClick={() => this.props.deleteMeeting(meeting.meetingID)}
                       />
                     </div>

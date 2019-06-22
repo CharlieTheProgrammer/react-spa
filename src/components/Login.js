@@ -12,6 +12,7 @@ export default class Login extends Component {
       emailError: "",
       password: '',
       passwordError: '',
+      formError: '',
       onSubmitCheck: ['email', 'password']
     };
 
@@ -76,49 +77,76 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="container">
-        <form onSubmit={this.onSubmit} noValidate>
-          <div className="form-group">
-            <div className={this.state.formError ? "alert-danger mb-2 p-1" : ""}>
-              {this.state.formError}
-            </div>
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              className={this.state.usernameError ? "form-control is-invalid" : "form-control"}
-              id="email"
-              name="email"
-              aria-describedby="emailHelp"
-              placeholder="Enter email"
-              value={this.state.email}
-              onChange={this.handleChange}
-              onBlur={this.handleBlur}
-            />
-            <div className="invalid-feedback">
-              {this.state.emailError}
+      <form className="mt-3" onSubmit={this.onSubmit} noValidate>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="card bg-light">
+                <div className="card-body">
+                  <h3 className="font-weight-light mb-3">Login</h3>
+                  <div className="form-row">
+                    <section className="col-sm-12 form-group">
+                    <div className={this.state.formError ? "alert-danger mb-2 p-1" : ""}>
+                      {this.state.formError}
+                    </div>
+                      <label
+                        className="form-control-label sr-only"
+                        htmlFor="email"
+                      >
+                        Email
+                      </label>
+                      <input
+                        className={this.state.emailError ? "form-control is-invalid" : "form-control"}
+                        type="text"
+                        id="email"
+                        placeholder="Email"
+                        name="email"
+                        required
+                        value={this.state.email}
+                        onChange={this.handleChange}
+                        onBlur={this.handleBlur}
+                      />
+                      <div className="valid-feedback">
+                        Looks good!
+                      </div>
+                      <div className="invalid-feedback">
+                        {this.state.emailError}
+                      </div>
+                    </section>
+                  </div>
+                  <section className="form-group">
+                    <label
+                      className="form-control-label sr-only"
+                      htmlFor="password"
+                    >
+                      Passsword
+                    </label>
+                    <input
+                      className={this.state.passwordError ? "form-control is-invalid" : "form-control"}
+                      type="password"
+                      id="password"
+                      placeholder="Password"
+                      required
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      onBlur={this.handleBlur}
+                    />
+                    <div className="invalid-feedback">
+                      {this.state.passwordError}
+                    </div>
+                  </section>
+                  <div className="form-group text-right mb-0">
+                    <button className="btn btn-primary" type="submit">
+                      Login
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className={this.state.passwordError ? "form-control is-invalid" : "form-control"}
-              id="password"
-              name="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.handleChange}
-              onBlur={this.handleBlur}
-            />
-            <div className="invalid-feedback">
-              {this.state.passwordError}
-            </div>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Log In
-          </button>
-        </form>
-      </div>
+        </div>
+      </form>
     );
   }
 }

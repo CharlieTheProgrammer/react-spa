@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import validate from "../features/errorHandling/Validation";
-import { FaCentercode } from "react-icons/fa";
 import MeetingList from "./MeetingList";
 
 class Meetings extends Component {
@@ -116,6 +115,7 @@ class Meetings extends Component {
                 <div className="list-group list-group-flush">
                   <MeetingList
                   meetings={this.props.meetings}
+                  user={this.props.user}
                   deleteMeeting={this.props.deleteMeeting}
                   ></MeetingList>
                 </div>
