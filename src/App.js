@@ -6,6 +6,7 @@ import Navigation from './components/Navigation'
 import Meetings from './components/Meetings'
 import Login from './components/Login'
 import Register from './components/Register'
+import Checkin from './components/Checkin'
 
 import { Router, navigate } from '@reach/router'
 
@@ -126,6 +127,7 @@ class App extends Component {
           <Login path='/login' logIn={this.logIn} />
           <Meetings path='/meetings' user={this.state.user} addMeeting={this.addMeeting} deleteMeeting={this.deleteMeeting} meetings={this.state.meetings}/>
           <Register path='/register' user={this.state.user} registerUser={this.registerUser} />
+          <Checkin path='/checkin/*' userID={this.state.userID} />
         </Router>
       </React.Fragment>
     );
