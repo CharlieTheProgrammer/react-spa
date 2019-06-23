@@ -7,10 +7,12 @@ import Meetings from './components/Meetings'
 import Login from './components/Login'
 import Register from './components/Register'
 import Checkin from './components/Checkin'
+import Attendees from './components/Attendees'
 
 import { Router, navigate } from '@reach/router'
 
 import firebase from './services/firebase'
+import firebaseHelpers from './services/firebaseHelpers'
 
 class App extends Component {
   constructor(props) {
@@ -57,23 +59,17 @@ class App extends Component {
           userID: FirebaseUser.uid
         })
 
-        const meetingsRef = firebase.database().ref(`/meetings/${FirebaseUser.uid}`)
-        meetingsRef.on('value', snapshot => {
-          let meetings = snapshot.val()
-          let meetingsList = []
-
-          for (let key in meetings) {
-            meetingsList.push({
-              meetingID: key,
-              meetingName: meetings[key].meetingName
+        firebaseHelpers.getMeetings(FirebaseUser.uid)
+          .then((meetingsList) => {
+            this.setState({
+              meetings: meetingsList,
+              howManyMeetings: meetingsList.length
             })
-          }
+          }).catch((err) => {
+            throw Error(err)
+            this.setState({ user: null })
+          });
 
-          this.setState({
-            meetings: meetingsList,
-            howManyMeetings: meetingsList.length
-          })
-        })
       } else {
         this.setState({ user: null })
       }
@@ -128,6 +124,7 @@ class App extends Component {
           <Meetings path='/meetings' user={this.state.user} addMeeting={this.addMeeting} deleteMeeting={this.deleteMeeting} meetings={this.state.meetings}/>
           <Register path='/register' user={this.state.user} registerUser={this.registerUser} />
           <Checkin path='/checkin/*' userID={this.state.userID} />
+          <Attendees path='/attendees/:userID/:meetingID' />
         </Router>
       </React.Fragment>
     );
