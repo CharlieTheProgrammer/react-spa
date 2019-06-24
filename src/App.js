@@ -65,10 +65,7 @@ class App extends Component {
               meetings: meetingsList,
               howManyMeetings: meetingsList.length
             })
-          }).catch((err) => {
-            throw Error(err)
-            this.setState({ user: null })
-          });
+        })
 
       } else {
         this.setState({ user: null })
@@ -124,7 +121,7 @@ class App extends Component {
           <Meetings path='/meetings' user={this.state.user} addMeeting={this.addMeeting} deleteMeeting={this.deleteMeeting} meetings={this.state.meetings}/>
           <Register path='/register' user={this.state.user} registerUser={this.registerUser} />
           <Checkin path='/checkin/*' userID={this.state.userID} />
-          <Attendees path='/attendees/:userID/:meetingID' />
+          <Attendees path='/attendees/:userID/:meetingID' adminUser={this.state.userID}/>
         </Router>
       </React.Fragment>
     );

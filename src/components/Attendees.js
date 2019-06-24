@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../services/firebase";
-import AttendeesList from './AttendeesList'
+import AttendeesList from "./AttendeesList";
 
 class Attendees extends Component {
   constructor(props) {
@@ -11,10 +11,12 @@ class Attendees extends Component {
   }
 
   componentDidMount() {
-    const ref = firebase.database().ref(`/meetings/${this.props.userID}/${this.props.meetingID}/attendees`);
+    const ref = firebase
+      .database()
+      .ref(`/meetings/${this.props.userID}/${this.props.meetingID}/attendees`);
     ref.on("value", snapshot => {
       let attendees = snapshot.val();
-      let attendeesList = []
+      let attendeesList = [];
       for (let key in attendees) {
         attendeesList.push({
           attendeeID: key,
@@ -25,7 +27,7 @@ class Attendees extends Component {
 
       this.setState({
         attendees: attendeesList
-      })
+      });
     });
   }
 
@@ -36,7 +38,12 @@ class Attendees extends Component {
           <div className="col-md-8 text-center">
             <h1 className="font-weight-light">Attendees</h1>
             <div className="card bg-light col-lg-10 mx-auto">
-              <AttendeesList attendees={this.state.attendees}></AttendeesList>
+              <AttendeesList
+                attendees={this.state.attendees}
+                meetingID={this.props.meetingID}
+                userID={this.props.userID}
+                adminUser={this.props.adminUser}
+              />
             </div>
           </div>
         </div>
