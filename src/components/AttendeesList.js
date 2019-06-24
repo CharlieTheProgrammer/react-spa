@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaStar, FaEnvelope } from "react-icons/fa";
 import firebase from '../services/firebase'
 
 class AttendeesList extends Component {
@@ -14,6 +14,18 @@ class AttendeesList extends Component {
     const adminUser = this.props.adminUser
     const ref = firebase.database().ref(`/meetings/${adminUser}/${meetingID}/attendees/${attendeeID}`)
     await ref.remove()
+  }
+
+  toggleStar(e, star, meetingID, attendeeID) {
+    e.preventDefault()
+    const adminUser = this.props.adminUser
+    const ref = firebase.database().ref(`/meetings/${adminUser}/${meetingID}/attendees/${attendeeID}/star`)
+
+    if (!star) {
+      ref.set(true)
+    } else {
+      ref.set(!star)
+    }
   }
 
   render() {
@@ -35,6 +47,15 @@ class AttendeesList extends Component {
               <div>{attendee.attendeeName}</div>
               {admin && (
                 <div className="btn-group pl-2 ml-auto">
+                  <button
+                    className={"btn btn-sm " + (attendee.star ? 'btn-info' : 'btn-outline-secondary ')}
+                    title="Star Attendee"
+                    onClick={e => this.toggleStar(e, attendee.star, this.props.meetingID, attendee.attendeeID)
+                    }
+                  >
+                    <FaStar className="" />
+                  </button>
+                  <a className="btn btn-sm btn-outline-secondary" href={`mailto:${attendee.attendeeEmail}`} title="Mail Attendee"><FaEnvelope></FaEnvelope> </a>
                   <button
                     className="btn btn-sm btn-outline-secondary"
                     title="Delete Attendee"

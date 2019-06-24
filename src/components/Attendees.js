@@ -21,7 +21,8 @@ class Attendees extends Component {
         attendeesList.push({
           attendeeID: key,
           attendeeName: attendees[key].attendeeName,
-          attendeeEmail: attendees[key].attendeeEmail
+          attendeeEmail: attendees[key].attendeeEmail,
+          star: attendees[key].star
         });
       }
 

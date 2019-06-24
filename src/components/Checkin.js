@@ -55,10 +55,11 @@ export default class Login extends Component {
 
       ref.push({
         attendeeName: this.state.displayName,
-        attendeeEmail: this.state.email
+        attendeeEmail: this.state.email,
+        star: false
       });
 
-      navigate(`/attendees/${this.props.userID}/${this.props.location.state.meetingID}`);
+      navigate(`/attendees/${this.props.userID}/${this.props.location.state.meetingID}`, {state: {meetingID: this.props.location.state.meetingID}});
     } else {
       return;
     }
