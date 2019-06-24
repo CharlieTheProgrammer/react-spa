@@ -12,7 +12,6 @@ import Attendees from './components/Attendees'
 import { Router, navigate } from '@reach/router'
 
 import firebase from './services/firebase'
-import firebaseHelpers from './services/firebaseHelpers'
 
 class App extends Component {
   constructor(props) {
@@ -59,14 +58,23 @@ class App extends Component {
           userID: FirebaseUser.uid
         })
 
-        firebaseHelpers.getMeetings(FirebaseUser.uid)
-          .then((meetingsList) => {
-            this.setState({
-              meetings: meetingsList,
-              howManyMeetings: meetingsList.length
-            })
-        })
+        const meetingsRef = firebase.database().ref(`/meetings/${FirebaseUser.uid}`)
+        meetingsRef.on('value', snapshot => {
+          let meetings = snapshot.val()
+          let meetingsList = []
 
+          for (let key in meetings) {
+            meetingsList.push({
+              meetingID: key,
+              meetingName: meetings[key].meetingName
+            })
+          }
+
+          this.setState({
+            meetings: meetingsList,
+            howManyMeetings: meetingsList.length
+          })
+        })
       } else {
         this.setState({ user: null })
       }
