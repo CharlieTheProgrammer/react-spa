@@ -87,6 +87,7 @@ class Meetings extends Component {
                     />
                     <div className="input-group-append">
                       <button
+                        title="Add Meeting"
                         type="submit"
                         className="btn btn-sm btn-info"
                         id="buttonAdd"

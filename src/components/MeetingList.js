@@ -15,6 +15,7 @@ export default class MeetingList extends Component {
                   <div>
                     <ul className="list-group list-group-horizontal">
                       <li className="list-group-item border"
+                      title="Check In"
                       style={
                           {
                             cursor: 'pointer'
@@ -26,6 +27,7 @@ export default class MeetingList extends Component {
                         />
                       </li>
                       <li className="list-group-item border"
+                      title="Attendees List"
                       style={
                         {
                           cursor: 'pointer'
@@ -36,6 +38,7 @@ export default class MeetingList extends Component {
                         <FaList />
                       </li>
                       <li className="list-group-item border"
+                        title="Delete Meeting"
                         style={
                           {
                             cursor: 'pointer'
