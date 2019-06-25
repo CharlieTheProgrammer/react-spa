@@ -48,11 +48,9 @@ export default class Login extends Component {
 
     if (errs.length === 0) {
       // No errors found proceed
-      console.log(errs.length, "Submitting Form...");
 
       firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        console.log("Signed In successfully")
         navigate('/meetings')
       })
       .catch((err) => {

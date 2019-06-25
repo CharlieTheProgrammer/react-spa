@@ -47,11 +47,10 @@ export default class Login extends Component {
 
     if (errs.length === 0) {
       // No errors found proceed
-      console.log(errs.length, "Submitting Form...");
 
       const ref = firebase
         .database()
-        .ref(`/meetings/${this.props.userID}/${this.props.location.state.meetingID}/attendees`);
+        .ref(`/meetings/${this.props.userID}/${this.props.meetingID}/attendees`);
 
       ref.push({
         attendeeName: this.state.displayName,
@@ -59,7 +58,7 @@ export default class Login extends Component {
         star: false
       });
 
-      navigate(`/attendees/${this.props.userID}/${this.props.location.state.meetingID}`, {state: {meetingID: this.props.location.state.meetingID}});
+      navigate(`/attendees/${this.props.userID}/${this.props.meetingID}`);
     } else {
       return;
     }
@@ -77,7 +76,6 @@ export default class Login extends Component {
   }
 
   render() {
-    console.log(this.props.location.state)
     return (
       <form className="mt-3" onSubmit={this.onSubmit} noValidate>
         <div className="container">

@@ -56,7 +56,6 @@ class Register extends Component {
 
     if (errs.length === 0) {
       // No errors found proceed
-      console.log(errs.length, "Submitting Form...")
 
       firebase.auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)

@@ -87,7 +87,6 @@ class App extends Component {
   }
 
   logOut(evt) {
-    console.log("Logging Out")
     this.setState({
       user: null,
       displayName: null,
@@ -100,14 +99,6 @@ class App extends Component {
   }
 
   addMeeting(meetingName) {
-    // let updatedMeetings = this.state.meetings
-    // let meetingObj = {
-    //   meetingName: meeting,
-    //   id: this.state.meetings.length + 1
-    // }
-    // updatedMeetings.push(meetingObj)
-    // this.setState({meetings: updatedMeetings})
-
     const ref = firebase.database().ref(`meetings/${this.state.user.uid}`)
     ref.push({ meetingName: meetingName })
   }
@@ -128,7 +119,7 @@ class App extends Component {
           <Login path='/login' logIn={this.logIn} />
           <Meetings path='/meetings' user={this.state.user} addMeeting={this.addMeeting} deleteMeeting={this.deleteMeeting} meetings={this.state.meetings}/>
           <Register path='/register' user={this.state.user} registerUser={this.registerUser} />
-          <Checkin path='/checkin/*' userID={this.state.userID} />
+          <Checkin path='/checkin/:userID/:meetingID' />
           <Attendees path='/attendees/:userID/:meetingID' adminUser={this.state.userID}/>
         </Router>
       </React.Fragment>
