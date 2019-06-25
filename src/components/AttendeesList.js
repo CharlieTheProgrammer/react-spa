@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FaTrash, FaStar, FaEnvelope } from "react-icons/fa";
+import { FaTrash, FaStar, FaEnvelope, FaTrophy } from "react-icons/fa";
 import firebase from '../services/firebase'
 
 class AttendeesList extends Component {
@@ -7,6 +7,7 @@ class AttendeesList extends Component {
     super(props);
 
     this.deleteAttendee = this.deleteAttendee.bind(this)
+    this.toggleStar = this.toggleStar.bind(this)
   }
 
   async deleteAttendee(e, meetingID, attendeeID) {
@@ -26,6 +27,17 @@ class AttendeesList extends Component {
     } else {
       ref.set(!star)
     }
+  }
+
+  chooseRandom(e) {
+    e.preventDefault()
+    const attendees = this.props.attendees
+    const meetingID = this.props.meetingID
+    const selectedUser = Math.floor(Math.random() * attendees.length)
+
+    const adminUser = this.props.adminUser
+    const ref = firebase.database().ref(`/meetings/${adminUser}/${meetingID}/attendees/${attendees[selectedUser].attendeeID}/star`)
+    ref.set(true)
   }
 
   render() {
@@ -74,6 +86,9 @@ class AttendeesList extends Component {
 
     return (
       <div className="row justify-content-center align-items-center flex-column py-4">
+        {admin && (
+          <button className="btn btn-sm btn-outline-secondary my-2 mb-3" onClick={e => this.chooseRandom(e)}>Select Random Winner <FaTrophy className="mx-2"></FaTrophy> </button>
+        )}
         {attendeesHtml}
       </div>
     );
