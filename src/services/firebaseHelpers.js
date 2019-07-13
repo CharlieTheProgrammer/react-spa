@@ -9,7 +9,6 @@ const getMeetings = (userID) => {
         meetingsRef.on('value', snapshot => {
             let meetings = snapshot.val()
             let meetingsList = []
-            //console.log(meetings)
 
             for (let key in meetings) {
                 meetingsList.push({
