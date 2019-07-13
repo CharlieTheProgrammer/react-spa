@@ -22,14 +22,14 @@ class FormatViolation extends ValidationError {
         super(...args)
 
         if (this.origin.dataPath) {
-            var dataPointName = this.origin.dataPath
+            let dataPointName = this.origin.dataPath
             // Removing the . from the front of the AJV error, converting capitalized letters to lowercase and prepending with a space, and capitalizing the first letter
             dataPointName = dataPointName.slice(1, 2).charAt(0).toUpperCase() + dataPointName.slice(2).replace(new RegExp('([A-Z])', 'g'), ' $1').toLowerCase()
+            this.message = `${dataPointName} is invalid.`
         } else {
-            var dataPointName =  this.origin.parentSchema.title
+            let dataPointName =  this.origin.parentSchema.title
+            this.message = `${dataPointName} is invalid.`
         }
-
-        this.message = `${dataPointName} is invalid.`
     }
 }
 
@@ -38,14 +38,15 @@ class PatternViolation extends ValidationError {
     constructor(...args) {
         super(...args)
 
+        let dataPointName=''
         if (this.origin.dataPath) {
-            var dataPointName = this.origin.dataPath
+            dataPointName = this.origin.dataPath
             // Removing the . from the front of the AJV error, converting capitalized letters to lowercase and prepending with a space, and capitalizing the first letter
             dataPointName = dataPointName.slice(1, 2).charAt(0).toUpperCase() + dataPointName.slice(2).replace(new RegExp('([A-Z])', 'g'), ' $1').toLowerCase()
+            this.message = `${dataPointName} is invalid.`
         } else {
-            var dataPointName =  this.origin.parentSchema.title
+            dataPointName =  this.origin.parentSchema.title
         }
-
         this.message = `${dataPointName} is invalid.`
     }
 }
@@ -67,12 +68,13 @@ class LengthViolation extends ValidationError {
     constructor(...args) {
         super(...args)
 
+        let dataPointName=''
         if (this.origin.dataPath) {
-            var dataPointName = this.origin.dataPath
+            dataPointName = this.origin.dataPath
             // Removing the . from the front of the AJV error, converting capitalized letters to lowercase and prepending with a space, and capitalizing the first letter
             dataPointName = dataPointName.slice(1, 2).charAt(0).toUpperCase() + dataPointName.slice(2).replace(new RegExp('([A-Z])', 'g'), ' $1').toLowerCase()
         } else {
-            var dataPointName =  this.origin.parentSchema.title
+            dataPointName =  this.origin.parentSchema.title
         }
 
         if(this.origin.data.length === 0 ) {
@@ -80,9 +82,9 @@ class LengthViolation extends ValidationError {
             return
         }
 
-        if (this.origin.keyword == 'minLength') {
+        if (this.origin.keyword === 'minLength') {
             this.message = `${dataPointName} should be longer than ${this.origin.params.limit} ${this.origin.params.limit > 1 ? 'characters' : 'character' }.`
-        } else if (this.origin.keyword == 'maxLength') {
+        } else if (this.origin.keyword === 'maxLength') {
             this.message = `${dataPointName} should be shorter than ${this.origin.params.limit} ${this.origin.params.limit > 1 ? 'characters' : 'character' }.`
         }
     }
@@ -135,17 +137,18 @@ class NumericalLimitViolation extends ValidationError {
     constructor(...args) {
         super(...args)
 
+        let dataPointName=''
         if (this.origin.dataPath) {
-            var dataPointName = this.origin.dataPath
+            dataPointName = this.origin.dataPath
             // Removing the . from the front of the AJV error, converting capitalized letters to lowercase and prepending with a space, and capitalizing the first letter
             dataPointName = dataPointName.slice(1, 2).charAt(0).toUpperCase() + dataPointName.slice(2).replace(new RegExp('([A-Z])', 'g'), ' $1').toLowerCase()
         } else {
-            var dataPointName =  this.origin.parentSchema.title
+            dataPointName =  this.origin.parentSchema.title
         }
 
-        if (this.origin.keyword == 'minimum') {
+        if (this.origin.keyword === 'minimum') {
             this.message = `${dataPointName} should be bigger than ${this.origin.params.limit} characters.`
-        } else if (this.origin.keyword == 'maximum') {
+        } else if (this.origin.keyword === 'maximum') {
             this.message = `${dataPointName} should be smaller than ${this.origin.params.limit} characters.`
         }
     }

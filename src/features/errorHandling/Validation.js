@@ -30,40 +30,28 @@ function formatError(err) {
     switch (err.keyword) {
         case 'required':
             return new RequiredViolation(err)
-            break;
         case 'pattern':
             return new PatternViolation(err)
-            break;
         case 'format':
             return new FormatViolation(err)
-            break;
         case 'minLength':
             return new LengthViolation(err)
-            break;
         case 'maxLength':
             return new LengthViolation(err)
-            break;
         case 'maximum':
             return new NumericalLimitViolation(err)
-            break;
         case 'minimum':
             return new NumericalLimitViolation(err)
-            break;
         case 'enum':
             return new EnumViolation(err)
-            break;
         case 'type':
             return new TypeViolation(err)
-            break;
         case 'additionalProperties':
             return new AdditionalPropertiesViolation(err)
-            break;
         case 'dependencies':
             return new DependenciesViolation(err)
-            break;
         default:
             return new Error("Input is invalid.")
-            break;
     }
 }
 
